@@ -1,15 +1,7 @@
 #+TITLE: Pymacs — Notes
 #+OPTIONS: H:2
 
-#+BEGIN_QUOTE
-  Known translations
-
-  | Document      | Language    | Translator          | Date         |
-  |---------------+-------------+---------------------+--------------|
-  | This file     | [[http://www.movavi.com/opensource/pymacs-be][Belorussian]] | [[mailto:bukhovko@gmail.com][Paul Bukhovko]]       |              |
-  | This file     | [[http://uhrenstore.de/blog/readmedateifurpymacs][German]]      | [[mailto:romanova.anastasyia@gmail.com][Anastasiya Romanova]] | [2012-04-09] |
-  | Pymacs manual | [[http://webhostinggeeks.com/science/pymacs-framework-ro][Romanian]]    | [[mailto:alovsov@gmail.com][Alexander Ovsov]]     |              |
-#+END_QUOTE
+See end of this file for translation credits ([[http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]], and [[http://webhostinggeeks.com/science/pymacs-framework-ro][Română]]).
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
@@ -29,6 +21,14 @@ format]]).
 Source files and various distributions are available through
 [[https://github.com/dgentry/Pymacs/]].  Please report problems, comments
 and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
+
+Known translations
+
+| Document      | Language    | Translator          | Date         |
+|---------------+-------------+---------------------+--------------|
+| This file     | [[http://www.movavi.com/opensource/pymacs-be][Belorussian]] | [[mailto:bukhovko@gmail.com][Paul Bukhovko]]       |              |
+| This file     | [[http://uhrenstore.de/blog/readmedateifurpymacs][German]]      | [[mailto:romanova.anastasyia@gmail.com][Anastasiya Romanova]] | [2012-04-09] |
+| Pymacs manual | [[http://webhostinggeeks.com/science/pymacs-framework-ro][Romanian]]    | [[mailto:alovsov@gmail.com][Alexander Ovsov]]     |              |
 
 ** Notes for 0.25
  <<2012-05-07>> [2012-05-07 lun] Hi everybody.
