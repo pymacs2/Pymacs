@@ -11,6 +11,16 @@ Within Emacs Lisp code, one may load and use Python modules.  Python
 functions may themselves use Emacs services, and handle Emacs Lisp
 objects kept in Emacs Lisp space.
 
+* Installation
+
+There is a new (as of May 2017) shell script that should install Pymacs into a virtual
+environment, if you have one activated, or into the system python (with --user) if not.
+
+$ ./install-pymacs.sh
+
+Also, The following liks point to the most recent archived version of François Pinard's
+website that seemed to contain these files:
+
 The Pymacs manual (either in [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pymacs.html][HTML format]] or [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pymacs.pdf][PDF format]]) has
 installation instructions, a full description of the API, pointers to
 documented examples, to resources, and to other Pymacs sites or
@@ -18,11 +28,13 @@ projects.  The distribution also includes the Poor's Python
 Pre-Processor (*pppp*) and its manual (either in [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pppp.html][HTML format]] or [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pppp.pdf][PDF
 format]]).
 
+* Source
+
 Source files and various distributions are available through
 [[https://github.com/dgentry/Pymacs/]].  Please report problems, comments
 and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
 
-Known translations
+* Known translations:
 
 | Document      | Language    | Translator          | Date         |
 |---------------+-------------+---------------------+--------------|
@@ -30,6 +42,7 @@ Known translations
 | This file     | [[http://uhrenstore.de/blog/readmedateifurpymacs][German]]      | [[mailto:romanova.anastasyia@gmail.com][Anastasiya Romanova]] | [2012-04-09] |
 | Pymacs manual | [[http://webhostinggeeks.com/science/pymacs-framework-ro][Romanian]]    | [[mailto:alovsov@gmail.com][Alexander Ovsov]]     |              |
 
+* Release Notes
 ** Notes for 0.25
  <<2012-05-07>> [2012-05-07 lun] Hi everybody.
 
