@@ -18,7 +18,7 @@ environment, if you have one activated, or into the system python (with --user) 
 Type the following commands into your shell:
 
 #+BEGIN_SRC shell
-wget https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
+curl -L -O https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
 chmod +x install-pymacs.sh
 ./install-pymacs.sh
 #+END_SRC
