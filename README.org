@@ -16,9 +16,11 @@ objects kept in Emacs Lisp space.
 There is a new (as of May 2017) shell script that should install Pymacs into a virtual
 environment, if you have one activated, or into the system python (with --user) if not.
 
+#+BEGIN EXAMPLE
 $ wget https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
 $ chmod +x install-pymacs.sh
 $ ./install-pymacs.sh
+#+END EXAMPLE
 
 The script is a distillation of all the installation advice I've found in various blog
 posts, etc.  It will install rope, ropemacs, and Pymacs, run Pymacs' tests, and ultimately
