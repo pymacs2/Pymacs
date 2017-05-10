@@ -19,13 +19,17 @@ Type the following commands into your shell:
 
 #+BEGIN_SRC shell
 wget https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
-chmod +x install-pymacs.sh
-./install-pymacs.sh
 #+END_SRC
 
 On Mac OS, if you don't yet have wget you can use:
 #+BEGIN_SRC shell
 curl -L -O https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
+#+END_SRC
+
+Then execute the script with:
+#+BEGIN_SRC shell
+chmod +x install-pymacs.sh
+./install-pymacs.sh
 #+END_SRC
 
 The script is a distillation of all the installation advice I've found in various blog
