@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # Install pymacs stuff that emacs needs (outside emacs), into the current
 # virtual environment, if there is one.
@@ -21,7 +21,8 @@ if [[ `uname` == 'Linux' && `uname -m` == "armv7l" ]]; then
     echo "in order to compile and install.  It mostly seems to work without"
     echo "them anyway, but if you want to sudo, here you go."
     echo " "
-    sudo apt-get install python-dev libffi-dev
+    sudo apt-get install python-pip libssl-dev libffi-dev python-dev
+    sudo pip install -U setuptools
 fi
 
 python -m pip install $USERFLAG --upgrade pyopenssl
