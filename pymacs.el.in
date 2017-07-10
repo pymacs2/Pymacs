@@ -191,7 +191,7 @@ which is the default."
   (unless (stringp module)
     (error "`%s' should be a string" module))
   (unless (pymacs-python-reference function)
-
+    (put function 'python-module module)
     (defalias function
       `(lambda (&rest args)
          ,(or docstring
@@ -268,7 +268,14 @@ equivalents, other structures are converted into Lisp handles."
                  "It interfaces to a Python function.\n\n"
                  (when python-doc
                    (if raw python-doc (substitute-command-keys python-doc)))))
-        ad-do-it))))
+        ad-do-it)))
+
+  (defadvice find-lisp-object-file-name (around pymacs-ad-py-module activate)
+    "Make it possible to Find help file."
+    (if (and (symbolp (ad-get-arg 0))
+             (get (ad-get-arg 0) 'python-module))
+        (setq ad-return-value (get (ad-get-arg 0) 'python-module))
+      ad-do-it)))
 
 (defun pymacs-python-reference (object)
   ;; Return the text reference of a Python object if possible, else nil.
