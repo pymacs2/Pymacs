@@ -13,7 +13,7 @@ objects kept in Emacs Lisp space.
 
 * Installation
 
-There is a new (as of May 2017) shell script that should install Pymacs into a virtual
+There is a new (as of May 2017) shell script that installs Pymacs into a virtual
 environment, if you have one activated, or into the system python (with --user) if not.
 Type the following commands into your shell:
 
@@ -21,7 +21,7 @@ Type the following commands into your shell:
 wget https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
 #+END_SRC
 
-On Mac OS, if you don't yet have wget you can use:
+If you don't have wget (e.g., MacOS before `brew install wget`) you can use:
 #+BEGIN_SRC shell
 curl -L -O https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
 #+END_SRC
@@ -32,12 +32,13 @@ chmod +x install-pymacs.sh
 ./install-pymacs.sh
 #+END_SRC
 
-The script is a distillation of all the installation advice I've found in various blog
-posts, etc.  It will install rope, ropemacs, and Pymacs, run Pymacs' tests, and ultimately
-check that you can invoke Pymacs with "python -c 'import Pymacs'".
+The script is a distillation of all the installation advice I've found in
+various blog posts, etc.  It will install rope, ropemacs, and Pymacs, run
+Pymacs' tests, and ultimately check that you can invoke Pymacs with "python -c
+'import Pymacs'".
 
-Also, the following links are old, but now point to the most recent archived version of
-François Pinard's website that seemed to contain these files:
+Also, the following links are old, but now point to the most recent archived
+version of François Pinard's website that seemed to contain these files:
 
 The Pymacs manual (either in [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pymacs.html][HTML format]] or [[http://web.archive.org/web/20100706203836/http://pymacs.progiciels-bpi.ca:80/pymacs.pdf][PDF format]]) has
 installation instructions, a full description of the API, pointers to
@@ -61,6 +62,26 @@ and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
 | Pymacs manual | [[http://webhostinggeeks.com/science/pymacs-framework-ro][Romanian]]    | [[mailto:alovsov@gmail.com][Alexander Ovsov]]     |              |
 
 * Release Notes
+** Notes for 0.26
+ <<2017-07-10>> [2017-07-10 lun] New release.
+
+Pymacs 0.26 is available at its new location:
+- Tarball at [[https://github.com/dgentry/Pymacs/tarball/v0.26]]
+- Zipped tarball at https://github.com/dgentry/Pymacs/zipball/v0.26
+
+The changes are:
+
+ - New maintainer and location because, very sadly, François Pinard died in
+   April 2014.  Switched references to the archived version of the website
+   because the original is offline.
+
+ - There is a new (much simpler for most people) way to install Pymacs,
+   `install-pymacs.sh.`  It performs the combined setup tasks that were the
+   subject of many blog posts.  If I missed something, please let me know or
+   create a pull request.
+
+ - A couple of improvements to the internal tests.
+
 ** Notes for 0.25
  <<2012-05-07>> [2012-05-07 lun] Hi everybody.
 
