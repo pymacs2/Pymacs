@@ -33,9 +33,9 @@ chmod +x install-pymacs.sh
 #+END_SRC
 
 The script is a distillation of all the installation advice I've found in
-various blog posts, etc.  It will install rope, ropemacs, and Pymacs, run
-Pymacs' tests, and ultimately check that you can invoke Pymacs with "python -c
-'import Pymacs'".
+various blog posts, etc.  It installs rope, ropemacs, and Pymacs, runs
+Pymacs' tests, and ultimately checks that you can invoke Pymacs with
+src_python[:exports code]{python -c "import Pymacs"}.
 
 Also, the following links are old, but now point to the most recent archived
 version of François Pinard's website that seemed to contain these files:
@@ -49,7 +49,7 @@ Pre-Processor (*pppp*) and its manual (either in [[http://web.archive.org/web/20
 
 * Source
 
-Source files and various distributions are available through
+Source files and various distributions are available at
 [[https://github.com/dgentry/Pymacs/]].  Please report problems, comments
 and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
 
@@ -75,10 +75,9 @@ The changes are:
    April 2014.  Switched references to the archived version of the website
    because the original is offline.
 
- - There is a new (much simpler for most people) way to install Pymacs,
-   `install-pymacs.sh.`  It performs the combined setup tasks that were the
-   subject of many blog posts.  If I missed something, please let me know or
-   create a pull request.
+ - There is a new (much simpler for most people) way to install Pymacs, src_python[:exports
+   code]{install-pymacs.sh}.  It performs the combined setup tasks that were the subject of
+   many blog posts.  If I missed something, please let me know or create a pull request.
 
  - A couple of improvements to the internal tests.
 
