@@ -1,7 +1,7 @@
 #+TITLE: Pymacs — Notes
 #+OPTIONS: H:2
 
-See end of this file for translation credits ([[http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]], and [[http://webhostinggeeks.com/science/pymacs-framework-ro][Română]]).
+See below for translation credits ([[http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]], and [[http://webhostinggeeks.com/science/pymacs-framework-ro][Română]]).
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
@@ -34,8 +34,7 @@ chmod +x install-pymacs.sh
 
 The script is a distillation of all the installation advice I've found in
 various blog posts, etc.  It installs rope, ropemacs, and Pymacs, runs
-Pymacs' tests, and ultimately checks that you can invoke Pymacs with
-src_python[:exports code]{python -c "import Pymacs"}.
+Pymacs' tests, and ultimately checks that you can invoke Pymacs with ~python -c "import Pymacs"~.
 
 Also, the following links are old, but now point to the most recent archived
 version of François Pinard's website that seemed to contain these files:
@@ -75,8 +74,7 @@ The changes are:
    April 2014.  Switched references to the archived version of the website
    because the original is offline.
 
- - There is a new (much simpler for most people) way to install Pymacs, src_python[:exports
-   code]{install-pymacs.sh}.  It performs the combined setup tasks that were the subject of
+ - There is a new (much simpler for most people) way to install Pymacs, ~install-pymacs.sh~.  It performs the combined setup tasks that were the subject of
    many blog posts.  If I missed something, please let me know or create a pull request.
 
  - A couple of improvements to the internal tests.
