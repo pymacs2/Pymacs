@@ -34,8 +34,8 @@ chmod +x install-pymacs.sh
 
 The script is a distillation of all the installation advice I've found in
 various blog posts, etc.  It installs =rope=, =ropemacs=, and =Pymacs=, runs
-Pymacs' tests, and ultimately checks that Pymacs works, with
-=python -c "import"=
+Pymacs' tests, and ="hi"= ultimately checks that Pymacs works, with
+=python -c import Pymacs=.
 
 Also, the following links are old, but now point to the most recent archived
 version of François Pinard's website that seemed to contain these files:
