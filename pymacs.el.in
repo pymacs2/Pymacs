@@ -3,8 +3,8 @@
 ;; Copyright © 2001-2003, 2012, 2013 Progiciels Bourbeau-Pinard inc.
 
 ;; Author: François Pinard <pinard@iro.umontreal.ca>
-;; Maintainer: François Pinard <pinard@iro.umontreal.ca>
-;; URL: https://github.com/pinard/Pymacs
+;; Maintainer: Dennis Gentry <dennis.gentry@gmail.com>
+;; URL: https://github.com/dgentry/Pymacs
 ;; Version: @VERSION@
 ;; Keywords: Python interface protocol
 
@@ -27,8 +27,7 @@
 ;; Pymacs is a powerful tool which, once started from Emacs, allows
 ;; both-way communication between Emacs Lisp and Python.  Pymacs aims
 ;; Python as an extension language for Emacs rather than the other way
-;; around.  Visit http://pymacs.progiciels-bpi.ca to read its manual,
-;; which also contains installation instructions.
+;; around.  Visit http://github.com/dgentry/Pymacs for more information.
 
 ;;; Code:
 
