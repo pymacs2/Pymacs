@@ -27,7 +27,7 @@ fi
 python -m pip install $USERFLAG --upgrade pyopenssl
 python -m pip install rope ropemacs $USERFLAG python
 
-python -m pip install --editable "git+https://github.com/pinard/Pymacs.git#egg=Pymacs"
+python -m pip install --editable "git+https://github.com/dgentry/Pymacs.git#egg=Pymacs"
 pushd "$SRC"
 cd pymacs/
 make check
