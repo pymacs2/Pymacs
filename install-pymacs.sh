@@ -15,9 +15,8 @@ else
     echo "Doing a user install of rope and ropemacs."
 fi
 
-# Older rpi might be "armv6l"
-if [[ `uname` == 'Linux' && `uname -m` == "armv7l" ]]; then
-    echo "Apparently on Raspbian, pyopenssl needs python-dev and libffi"
+if [[ `uname` == 'Linux' ]]; then
+    echo "Apparently on Raspbian, Ubuntu, and Debian, pyopenssl needs python-dev and libffi"
     echo "in order to compile and install.  It mostly seems to work without"
     echo "them anyway, but if you want to sudo, here you go."
     echo " "
