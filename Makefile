@@ -55,22 +55,27 @@ pymacs.pdf: pymacs.rst.in
 	mv -f tmp-pdf/pymacs.pdf $@
 	rm -rf tmp-pdf
 
-ifneq "$(wildcard ~/etc/mes-sites/site.mk)" ""
+# ifneq "$(wildcard ~/etc/mes-sites/site.mk)" ""
 
-site: site-all
+htmldir = ./html
+symlink =
+
+
+GOALS = $(htmldir)/README.html $(htmldir)/contrib $(htmldir)/index.html $(htmldir)/pppp.pdf $(htmldir)/pymacs.pdf
+
+site: $(GOALS)
 
 package_name = Pymacs
 margin_color = "\#d1b7ff"
 caption_color = "\#f1e4eb"
 
-GOALS = README.html contrib index.html pppp.pdf pymacs.pdf
 
-include ~/etc/mes-sites/site.mk
+# include ~/etc/mes-sites/site.mk
 
 $(htmldir)/README.html $(htmldir)/index.html:
-	@_2 "$$(basename $@ .html) \c"
+	./org2html.sh README.org
 	@rm -f $@
-	@ln -s ~/html/notes/Pymacs.html $@
+	# @ln -s ~/html/notes/Pymacs.html $@
 
 $(htmldir)/contrib: contrib
 	$(symlink)
@@ -80,5 +85,3 @@ $(htmldir)/pppp.pdf: pppp.pdf
 
 $(htmldir)/pymacs.pdf: pymacs.pdf
 	$(symlink)
-
-endif
