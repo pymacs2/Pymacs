@@ -18,7 +18,7 @@ def split_multiline(value):
 def cfg_to_args(path='setup.cfg'):
     """Compatibility helper to use setup.cfg in setup.py.
 
-    This functions uses an existing setup.cfg to generate a dictionnary of
+    This functions uses an existing setup.cfg to generate a dictionary of
     keywords that can be used by distutils.core.setup(**kwargs).  It is used
     by generate_setup_py.
 
