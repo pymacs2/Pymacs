@@ -11,8 +11,10 @@ Extending Emacs with Python
 ---------------------------
 
   :Author: François Pinard
-  :Email: pinard@iro.umontreal.ca
-  :Copyright: © Progiciels Bourbeau-Pinard inc., Montréal 2003, 2008, 2010, 2012
+  :Maintainer: Dennis Gentry
+  :Email: dennis.gentry@gmail.com
+  :Copyright: © Progiciels Bourbeau-Pinard inc., Montréal 2003, 2008, 2010, 2012; Dennis
+              Gentry, 2017
 
 .. contents::
 .. sectnum::
@@ -44,9 +46,9 @@ It is very easy to install Pymacs, as neither Emacs nor Python need to
 be compiled nor relinked.  Emacs merely starts Python as a subprocess,
 and Pymacs implements a communication protocol between both processes.
 
-Report problems, documentation flaws, or suggestions to François Pinard:
+Report problems, documentation flaws, or suggestions to Dennis Gentry
 
-  + mailto:pinard@iro.umontreal.ca
+  + mailto:dennis.gentry@gmail.com
 
 Documentation and examples
 --------------------------
@@ -778,7 +780,7 @@ declaration is ignored.
 Here are examples of usage for the :code:`pymacs-autoload` function::
 
   (pymacs-autoload 'os-getenv "os" nil nil "sEnv name: ")
-  (pymacs-autoload 'posix-getenv "os" "posix-" nil 
+  (pymacs-autoload 'posix-getenv "os" "posix-" nil
       '(list (read-string "Env name: ")))
 
 The second example could be written more simply as in the first
