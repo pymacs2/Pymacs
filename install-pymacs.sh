@@ -24,6 +24,16 @@ if [[ `uname` == 'Linux' ]]; then
     sudo pip install -U setuptools
 fi
 
+if [[ -d ~/.emacs.d/lisp ]]; then
+    USER_LISP_DIR="$HOME/.emacs.d/lisp"
+elif [[ -d ~/.emacs.d ]]; then
+    USER_LISP_DIR="$HOME/.emacs.d"
+else
+    echo "Couldn't guess a good place to put pymacs.el."
+    echo "You should manually copy it from $HOME/pymacs.el."
+    USER_LISP_DIR="$HOME"
+fi
+
 python -m pip install $USERFLAG --upgrade pyopenssl
 python -m pip install rope ropemacs $USERFLAG python
 
@@ -32,6 +42,10 @@ pushd "$SRC"
 cd pymacs/
 make check
 ${SUDO} make install
+echo " "
+echo "Copying pymacs.el to $USER_LISP_DIR"
+cp pymacs.el $USER_LISP_DIR
+echo " "
 popd
 echo "Finished in:" $(pwd)
 cd
