@@ -31,7 +31,6 @@ if [[ -x "${CHECK_CMD}" ]]; then
 fi
 
 echo "Using ${INSTALL_CMD} to install."
-exit 1
 
 if [[ `uname` == 'Linux' ]]; then
     echo "Apparently on Raspbian, Ubuntu, and Debian, pyopenssl needs python-dev and libffi"
