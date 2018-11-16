@@ -23,7 +23,7 @@ if [[ -x "${CHECK_CMD}" ]]; then
 fi
 CHECK_CMD=$(which apt-get 2> /dev/null)
 if [[ -x "${CHECK_CMD}" ]]; then
-    INSTALL_CMD="sudo ${INSTALL_CMD} install -y"
+    INSTALL_CMD="sudo ${CHECK_CMD} install -y"
 fi
 CHECK_CMD=$(which brew 2> /dev/null)
 if [[ -x "${CHECK_CMD}" ]]; then
@@ -31,6 +31,7 @@ if [[ -x "${CHECK_CMD}" ]]; then
 fi
 
 echo "Using ${INSTALL_CMD} to install."
+exit 1
 
 if [[ `uname` == 'Linux' ]]; then
     echo "Apparently on Raspbian, Ubuntu, and Debian, pyopenssl needs python-dev and libffi"
