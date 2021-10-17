@@ -37,8 +37,8 @@ if [[ `uname` == 'Linux' ]]; then
     echo "in order to compile and install.  It mostly seems to work without"
     echo "them anyway, but if you want to sudo, here you go."
     echo " "
-    echo "${INSTALL_CMD} python-pip3 libssl-dev libffi-dev python-dev"
-    ${INSTALL_CMD} python-pip3 libssl-dev libffi-dev python-dev
+    echo "${INSTALL_CMD} python3-pip libssl-dev libffi-dev python-dev"
+    ${INSTALL_CMD} python3-pip libssl-dev libffi-dev python-dev
     sudo pip install -U setuptools
 fi
 
