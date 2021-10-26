@@ -81,7 +81,7 @@ def test_1():
             Pymacs.print_lisp(repr(input), fragments.append, quotable)
         yield validate, ''.join(fragments), output
     tests = [('ord', ('(lambda (&rest arguments)'
-                      ' (pymacs-apply (quote (pymacs-python . 0))'
+                      " (pymacs-apply '(pymacs-python . 0)"
                       ' arguments))')),
              ('object()', '(pymacs-python . 0)')]
     for input, output in tests:

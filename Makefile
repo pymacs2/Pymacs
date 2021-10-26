@@ -12,6 +12,7 @@ PPPP = $(PYTHON) pppp -C ppppconfig.py
 all pregithub: prepare
 	$(PYSETUP) --quiet build
 
+test: check
 check: clean-debug
 	$(PPPP) pymacs.el.in Pymacs.py.in tests
 	cd tests && \
