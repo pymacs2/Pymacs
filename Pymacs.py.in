@@ -233,7 +233,7 @@ class Protocol:
                     action = 'raise'
                     if lisp.debug_on_error.value() is None:
                         value = traceback.format_exception_only(
-                            sys.exc_info[0], sys.exc_info[1])
+                            sys.exc_info()[0], sys.exc_info()[1])
                         value = ''.join(value).rstrip()
                     else:
                         value = traceback.format_exc()
