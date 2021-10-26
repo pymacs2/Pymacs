@@ -26,13 +26,10 @@ jobs:
           ls ${{ github.workspace }}
     - run: echo "🍏 This job's status is ${{ job.status }}."
     
-    - name: Set up Emacs
-      # You may pin to the exact commit or the version.
-      # uses: purcell/setup-emacs@bea3d9e95785b8412caf802b320cd6de386be7a3
-      uses: purcell/setup-emacs@v3.0
-      with:
-        # The version of Emacs to install, e.g. "24.3", or "snapshot" for a recent development version.
-        version: # optional
+    - name: Install package
+      run: |
+        sudo apt-get -y install emacs-nox
+        which emacs   
         
     - name: Build pymacs
       run: make
