@@ -1,7 +1,7 @@
 #+TITLE: Pymacs — Notes
 #+OPTIONS: H:2
 
-Build Status: ![Build/test](https://github.com/pymacs2/Pymacs/actions/workflows/main.yml/badge.svg)
+![Build Status](https://github.com/pymacs2/Pymacs/actions/workflows/makefile.yml/badge.svg)
 
 See below for translation credits ([[http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]], and [[http://webhostinggeeks.com/science/pymacs-framework-ro][Română]]).
 
