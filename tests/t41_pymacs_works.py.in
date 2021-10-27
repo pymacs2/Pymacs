@@ -16,10 +16,26 @@ def teardown_module(module):
 def test_1():
 
     def validate(input, expected):
+        print(f"Validate input: {input}")
+        print(f"Valid expected: {expected}")
+        y = setup.ask_emacs("(pymacs-eval '(setq cl-print-readably 1))", 'prin1')
+        print(f"Y is {y}")
+        y = setup.ask_emacs("(pymacs-eval 'cl-print-readably)", 'prin1')
+        print(f"Y is {y}")
+        x = setup.ask_emacs('(pymacs-eval %s)' % input, 'cl-prin1')
+        print(f"ask-emacs:      {x}")
         output = re.sub(r'\(pymacs-(defun|python) \. [0-9]*\)',
                         r'(pymacs-\1 . 0)',
-                        setup.ask_emacs('(pymacs-eval %s)' % input, 'prin1'))
-        assert output == expected, (output, expected)
+                        x)
+        print(f"Expected    is: {expected}")
+        # Pretty sure matching nested parens is impossible in re's, so
+        # this is a horrible hack, but we need to change:
+        # (quote (whatever)) to `(whatever)
+        dequote = re.sub(r'\(quote \(([^\)]*)\)',
+                         r"'(\1",
+                         output)
+        print(f"Dequote     is: {dequote}")
+        assert output == expected, (dequote, expected)
 
     tests = []
     tests += [(False, None, 'nil'),
