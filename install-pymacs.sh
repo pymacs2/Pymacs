@@ -38,8 +38,9 @@ if [[ `uname` == 'Linux' ]]; then
     echo "them anyway, but if you want to sudo, here you go."
     echo " "
     echo "${INSTALL_CMD} python3-pip libssl-dev libffi-dev python-dev"
-    ${INSTALL_CMD} python3-pip libssl-dev libffi-dev python-dev
-    sudo pip install -U setuptools
+    ${INSTALL_CMD} python3-pip libssl-dev libffi-dev python-dev-is-python3
+    sudo pip3 install --upgrade pip
+    sudo pip3 install -U setuptools
 fi
 
 if [[ -d ~/.emacs.d/lisp ]]; then
@@ -53,7 +54,7 @@ else
 fi
 
 python -m pip install $USERFLAG --upgrade pyopenssl
-python -m pip install rope ropemacs $USERFLAG python
+python -m pip install $USERFLAG rope ropemacs
 
 python -m pip install --editable "git+https://github.com/dgentry/Pymacs.git#egg=Pymacs"
 pushd "$SRC"
