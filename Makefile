@@ -74,7 +74,7 @@ caption_color = "\#f1e4eb"
 # include ~/etc/mes-sites/site.mk
 
 $(htmldir)/README.html $(htmldir)/index.html:
-	./org2html.sh README.org
+	./org2html.sh README.md
 	@rm -f $@
 	# @ln -s ~/html/notes/Pymacs.html $@
 
