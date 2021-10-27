@@ -34,6 +34,8 @@ clean: clean-debug
 clean-debug:
 	rm -f tests/debug-protocol tests/debug-signals
 
+doc: pppp.pdf pymacs.pdf
+
 pppp.pdf: pppp.rst.in
 	$(PPPP) pppp.rst.in
 	rm -rf tmp-pdf
