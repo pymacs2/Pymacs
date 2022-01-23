@@ -38,10 +38,10 @@ import os
 import sys
 
 if PYTHON3:
-    import collections
+    from collections.abc import Callable
 
     def callable(value):
-        return isinstance(value, collections.Callable)
+        return isinstance(value, Callable)
 
     basestring = str
     from imp import reload
@@ -231,12 +231,14 @@ class Protocol:
                 except:
                     import traceback
                     action = 'raise'
-                    if lisp.debug_on_error.value() is None:
-                        value = traceback.format_exception_only(
-                            sys.exc_info()[0], sys.exc_info()[1])
-                        value = ''.join(value).rstrip()
-                    else:
+                    if lisp.debug_on_error.value():
                         value = traceback.format_exc()
+                    else:
+                        exc_info = sys.exc_info()
+                        value = traceback.format_exception_only(
+                            exc_info[0], exc_info[1])
+                        value = ''.join(value).rstrip()
+                    value = "Caught error: %s,%s, %s "% (action,text, value)
                 if not done:
                     fragments = []
                     print_lisp(value, fragments.append, True)
@@ -301,12 +303,14 @@ class Protocol:
                 except:
                     import traceback
                     action = 'raise'
-                    if lisp.debug_on_error.value() is None:
-                        value = traceback.format_exception_only(
-                            sys.exc_type, sys.exc_value)
-                        value = ''.join(value).rstrip()
-                    else:
+                    if lisp.debug_on_error.value():
                         value = traceback.format_exc()
+                    else:
+                        exc_info = sys.exc_info()
+                        value = traceback.format_exception_only(
+                            exc_info[0], exc_info[1])
+                        value = ''.join(value).rstrip()
+                    value = "Caught error: %s,%s, %s "% (action,text, value)
                 if not done:
                     fragments = []
                     print_lisp(value, fragments.append, True)
