@@ -25,3 +25,4 @@ tests/t11_pyfile_works.py
 tests/t21_helper_works.py
 tests/t31_elfile_works.py
 tests/t41_pymacs_works.py
+Pymacs.egg-info
