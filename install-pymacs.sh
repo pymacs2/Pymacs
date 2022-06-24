@@ -74,13 +74,15 @@ python -m pip install rope ropemacs
 python -m pip install --editable "git+https://github.com/dgentry/Pymacs.git#egg=Pymacs"
 pushd "$SRC"
 cd pymacs/
+msg "Running tests"
 make check
+msg "Installing"
 ${SUDO} make install
 msg " "
 msg "Copying pymacs.el to $USER_LISP_DIR"
 cp pymacs.el $USER_LISP_DIR
 msg " "
-popd
+cd ..
 msg "Final check:"
 python -c 'import Pymacs'
 if [ $? ]; then
