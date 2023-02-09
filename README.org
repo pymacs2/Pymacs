@@ -53,6 +53,8 @@ Pre-Processor (*pppp*) and its manual (either in [[http://web.archive.org/web/20
 To load =Pymacs= put the below snippet into your =.emacs= file
 
 #+BEGIN_SRC elisp
+(add-to-list 'load-path "path/to/pymacs")
+(require 'pymacs)
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
 (autoload 'pymacs-eval "pymacs" nil t)
