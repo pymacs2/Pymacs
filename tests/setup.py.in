@@ -57,7 +57,7 @@ class Emacs(Launch):
         import atexit
         atexit.register(self.cleanup)
         emacs = os.environ.get('EMACS') or 'emacs'
-        self.command = (emacs, '-batch', '--no-site', '--no-init',
+        self.command = (emacs, '-batch', '--no-site-file', '--no-init',
                         '-q', '-l', 'setup.el')
         if subprocess is None:
             self.command = self.command + ('-f', 'run-one-request')
