@@ -5,17 +5,30 @@ Pymacs — Notes
     :Author: François Pinard
     :Maintainer: Dennis Gentry
 
-.. contents::
-
-|BuildStatus|
-
-.. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
-   :target:
+Generic
+-------
 
 |Generic badge|
 
-.. |Generic badge| image:: https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg
-   :target:
+.. code:: rst
+
+    |Generic badge|
+
+    .. |Generic badge| image:: https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg
+       :target:
+
+|BuildStatus|
+
+.. code:: rst
+
+    |BuildStatus|
+
+    .. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
+    :target:
+
+
+.. contents::
+
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
