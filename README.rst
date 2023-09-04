@@ -1,30 +1,17 @@
-==============
-Pymacs — Notes
-==============
+Pymacs
+======
+
+|Build Status|
+
+.. |Build Status| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
+    :target: https://github.com/pymacs2/Pymacs
+
+That broke it.  Back to no README.
 
     :Author: François Pinard
     :Maintainer: Dennis Gentry
 
-Generic
--------
-
-|Generic badge|
-
-.. code:: rst
-
-    |Generic badge|
-
-    .. |Generic badge| image:: https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg
-       :target:
-
-|BuildStatus|
-
-.. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
-    :target:
-
-
 .. contents::
-
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
