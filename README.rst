@@ -7,9 +7,15 @@ Pymacs — Notes
 
 .. contents::
 
-  |BuildStatus|
+|BuildStatus|
 
-   .. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
+.. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
+   :target:
+
+|Generic badge|
+
+.. |Generic badge| image:: https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg
+   :target:
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
