@@ -1,9 +1,7 @@
 #+TITLE: Pymacs — Notes
 #+OPTIONS: H:2
 
-Tests: ![Build Status](https://github.com/pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg)
-
-See below for translation credits ([[http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]], and [[http://webhostinggeeks.com/science/pymacs-framework-ro][Română]]).
+![Build Status](https://github.com/pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg)
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
@@ -13,19 +11,23 @@ Within Emacs Lisp code, one may load and use Python modules.  Python
 functions may themselves use Emacs services, and handle Emacs Lisp
 objects kept in Emacs Lisp space.
 
+See below for translation credits ([[https://web.archive.org/web/20110202105549/http://www.movavi.com/opensource/pymacs-be][Belorussian]], [[https://web.archive.org/web/20130822054524/http://uhrenstore.de/blog/readmedateifurpymacs][Deutsche]])
+
+
 * Installation
 
-There is a new (as of May 2017) shell script that installs Pymacs into a virtual
-environment, if you have one activated, or into the system python (with --user) if not.
-Type the following commands into your shell:
+There is a new (as of May 2017, updated Sept 2023) shell script that
+installs Pymacs into a virtual environment, if you have one activated,
+or into the system python (with --user) if not.  Type the following
+commands into your shell:
 
 #+BEGIN_SRC shell
-wget https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
+wget https://github.com/Pymacs2/Pymacs/raw/master/install-pymacs.sh
 #+END_SRC
 
 If you don't have wget (e.g., MacOS before `brew install wget`) you can use:
 #+BEGIN_SRC shell
-curl -L -O https://github.com/dgentry/Pymacs/raw/master/install-pymacs.sh
+curl -L -O https://github.com/Pymacs2/Pymacs/raw/master/install-pymacs.sh
 #+END_SRC
 
 Then execute the script with:
@@ -52,7 +54,7 @@ Pre-Processor (*pppp*) and its manual (either in [[http://web.archive.org/web/20
 * Source
 
 Source files and various distributions are available at
-[[https://github.com/dgentry/Pymacs/]].  Please report problems, comments
+[[https://github.com/Pymacs2/Pymacs/]].  Please report problems, comments
 and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
 
 * Known translations:
@@ -61,7 +63,6 @@ and suggestions to [[mailto:dennis.gentry@gmail.com][Dennis Gentry]].
 |---------------+-------------+---------------------+--------------|
 | This file     | [[http://www.movavi.com/opensource/pymacs-be][Belorussian]] | [[mailto:bukhovko@gmail.com][Paul Bukhovko]]       |              |
 | This file     | [[http://uhrenstore.de/blog/readmedateifurpymacs][German]]      | [[mailto:romanova.anastasyia@gmail.com][Anastasiya Romanova]] | [2012-04-09] |
-| Pymacs manual | [[http://webhostinggeeks.com/science/pymacs-framework-ro][Romanian]]    | [[mailto:alovsov@gmail.com][Alexander Ovsov]]     |              |
 
 * Release Notes
 ** Notes for 0.26
