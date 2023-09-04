@@ -19,11 +19,7 @@ Generic
 
 |BuildStatus|
 
-.. code:: rst
-
-    |BuildStatus|
-
-    .. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
+.. |BuildStatus| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
     :target:
 
 
