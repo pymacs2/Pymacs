@@ -6,7 +6,7 @@ Pymacs
 .. |Build Status| image:: https://github.com//pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg
     :target: https://github.com/pymacs2/Pymacs
 
-That broke it.  Back to no README.
+Pymacs Notes
 
     :Author: François Pinard
     :Maintainer: Dennis Gentry
