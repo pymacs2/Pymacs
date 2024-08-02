@@ -36,6 +36,7 @@ version = '@VERSION@'
 
 import os
 import sys
+import signal
 
 if PYTHON3:
     from collections.abc import Callable
@@ -57,12 +58,6 @@ def fixup_icanon():
     a = termios.tcgetattr(1)
     a[3] &= ~termios.ICANON
     termios.tcsetattr(1, termios.TCSANOW, a)
-
-try:
-    import signal
-except ImportError:
-    # Jython does not have signal.
-    signal = None
 
 ## Python services for Emacs applications.
 

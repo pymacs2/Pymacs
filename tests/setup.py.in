@@ -2,23 +2,9 @@
 
 # Python side of the testing protocol.
 
-if PYTHON3:
-    import os, signal, subprocess
-else:
+import os, subprocess
+if not PYTHON3:
     __metaclass__ = type
-    import os
-
-    try:
-        import signal
-    except ImportError:
-        # Jython misses this module.
-        signal = None
-
-    try:
-        import subprocess
-    except ImportError:
-        # Jython misses this module.
-        subprocess = None
 
 # Make sure that ../Pymacs will be found within this process.
 import sys
@@ -58,19 +44,14 @@ class Emacs(Launch):
         atexit.register(self.cleanup)
         emacs = os.environ.get('EMACS') or 'emacs'
         self.command = (emacs, '-batch', '--no-site-file', '--no-init',
-                        '-q', '-l', 'setup.el')
-        if subprocess is None:
-            self.command = self.command + ('-f', 'run-one-request')
-        else:
-            self.command = self.command + ('-f', 'run-all-requests')
+                        '-q', '-l', 'setup.el', '-f', 'run-all-requests')
 
     def cleanup(self):
         if self.popen is not None:
             self.popen.poll()
             if self.popen.returncode is None:
-                if signal is not None:
-                    os.kill(self.popen.pid, signal.SIGINT)
-                    os.waitpid(self.popen.pid, 0)
+                self.popen.kill()
+                self.popen.wait()
             self.popen = None
         if os.path.exists('_request'):
             os.remove('_request')
@@ -78,24 +59,19 @@ class Emacs(Launch):
             os.remove('_reply')
 
     def receive(self):
-        if subprocess is None:
-            handle = open('_reply')
-            buffer = handle.read()
-            handle.close()
-        else:
-            import time
-            while os.path.exists('_request'):
-                self.popen.poll()
-                assert self.popen.returncode is None, self.popen.returncode
-                time.sleep(0.005)
+        import time
+        while os.path.exists('_request'):
             self.popen.poll()
             assert self.popen.returncode is None, self.popen.returncode
-            if PYTHON3:
-                handle = open('_reply', newline='')
-            else:
-                handle = open('_reply')
-            buffer = handle.read()
-            handle.close()
+            time.sleep(0.005)
+        self.popen.poll()
+        assert self.popen.returncode is None, self.popen.returncode
+        if PYTHON3:
+            handle = open('_reply', newline='')
+        else:
+            handle = open('_reply')
+        buffer = handle.read()
+        handle.close()
         return buffer
 
     def send(self, text):
@@ -105,16 +81,12 @@ class Emacs(Launch):
             handle = open('_request', 'w')
         handle.write(text)
         handle.close()
-        if subprocess is None:
-            status = os.system(' '.join(self.command))
-            assert status == 0, status
-        else:
-            if os.path.exists('_reply'):
-                os.remove('_reply')
-            if self.popen is None:
-                self.popen = subprocess.Popen(self.command)
-            self.popen.poll()
-            assert self.popen.returncode is None, self.popen.returncode
+        if os.path.exists('_reply'):
+            os.remove('_reply')
+        if self.popen is None:
+            self.popen = subprocess.Popen(self.command)
+        self.popen.poll()
+        assert self.popen.returncode is None, self.popen.returncode
 
 def start_emacs():
     Emacs.services = Emacs()
@@ -133,7 +105,6 @@ class Python(Launch):
     def __init__(self):
         Launch.__init__(self)
         # Start a Pymacs helper subprocess for executing Python code.
-        import subprocess
         self.process = subprocess.Popen(
                 [os.environ.get('PYTHON') or 'python',
                     '-c', 'from Pymacs import main; main(\'..\')'],
