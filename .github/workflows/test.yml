@@ -1,0 +1,60 @@
+name: Pymacs test
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYMACS_OPTIONS: -d debug-protocol -s debug-signals
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        emacs-version: [28.1, 29.4]
+        python-version: [3.8, 3.12]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        experimental: [false]
+        include:
+          - emacs-version: 29.4
+            python-version: graalpy-24.0
+            os: ubuntu-latest
+            experimental: true
+          - emacs-version: 29.4
+            python-version: pypy2.7
+            os: ubuntu-latest
+            experimental: true
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      id: cpython
+      with:
+        python-version: ${{matrix.python-version}}
+        cache: 'pip'
+    - name: Set up Emacs
+      uses: jcs090218/setup-emacs@master
+      id: emacs
+      with:
+        version: ${{ matrix.emacs-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install .
+    - name: Run tests
+      env:
+        PYTHONUTF8: ${{ runner.os == 'Windows' && '1' || env.PYTHONUTF8 }}
+      run: |
+        python pppp -C ppppconfig.py Pymacs.py.in pppp.rst.in pymacs.el.in pymacs.rst.in contrib tests
+        cd tests && python pytest -f t
+    - name: Archive debug protocol
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug-protocol-${{ matrix.emacs-version }}_${{ matrix.python-version }}_${{ matrix.os }}
+        path: tests/debug-protocol
