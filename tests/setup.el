@@ -21,7 +21,7 @@
     (with-current-buffer buffer
       (buffer-disable-undo)
       (pymacs-set-buffer-multibyte t)
-      (set-buffer-file-coding-system 'utf-8)
+      (set-buffer-file-coding-system 'utf-8-unix)
       (while t
         (while (file-exists-p "_reply")
           (sleep-for .005))

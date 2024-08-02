@@ -69,7 +69,7 @@ class Emacs(Launch):
         if PYTHON3:
             handle = open('_reply', newline='')
         else:
-            handle = open('_reply')
+            handle = open('_reply', 'rb')
         buffer = handle.read()
         handle.close()
         return buffer
