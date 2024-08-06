@@ -1,0 +1,43 @@
+name: Legacy tests on Windows
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYMACS_OPTIONS: -d debug-protocol -s debug-signals
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        emacs-version: [22.3, 23.4, 24.5, 25.3, 26.3, 29.4]
+        python-version: [2.7.18]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Emacs
+      uses: jcs090218/setup-emacs-windows@master
+      id: emacs
+      with:
+        version: ${{ matrix.emacs-version }}
+    - uses: actions/cache@v4
+      with:
+        path: python-${{ matrix.python-version }}.amd64.msi
+        key: ${{ matrix.python-version }}
+        save-always: true
+    - name: Set up Python & run tests
+      shell: pwsh
+      run: ./test-windows.ps1 -EmacsVersion ${{ matrix.emacs-version }} -PythonVersion ${{ matrix.python-version }}
+    - name: Archive debug protocol
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug-protocol-${{ matrix.emacs-version }}_${{ matrix.python-version }}
+        path: |
+          tests/debug-protocol
+          install.log
