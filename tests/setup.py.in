@@ -108,7 +108,8 @@ class Python(Launch):
         self.process = subprocess.Popen(
                 [os.environ.get('PYTHON') or 'python',
                     '-c', 'from Pymacs import main; main(\'..\')'],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                universal_newlines=True)
         text = self.receive()
         assert text == '(version "@VERSION@")\n', repr(text)
 
