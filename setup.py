@@ -71,6 +71,8 @@ def cfg_to_args(path='setup.cfg'):
     f = codecs.open(path, encoding='utf-8')
     try:
         config.read_file(f)
+    except AttributeError:
+        config.readfp(f)
     finally:
         f.close()
 
