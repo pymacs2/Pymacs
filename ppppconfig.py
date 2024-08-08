@@ -68,3 +68,18 @@ def get_python3():
 
 PYTHON3 = get_python3()
 del get_python3
+
+# Some old Emacs are broken on Windows (at least) w.r.t. start-process
+# if -batch command line option was used to start it. This affects
+# testing only as it is all meant to be used mostly interactively.
+def get_no_batch():
+    import os, subprocess
+    emacs = os.environ.get('EMACS') or 'emacs'
+    p = subprocess.Popen([emacs, '-batch', '--eval', '(princ emacs-major-version)'],
+                         stdout=subprocess.PIPE)
+    out, _ = p.communicate()
+    return int(out) <= 23 and os.name == 'nt'
+
+NO_BATCH = get_no_batch()
+del get_no_batch
+    

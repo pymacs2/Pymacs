@@ -43,8 +43,12 @@ class Emacs(Launch):
         import atexit
         atexit.register(self.cleanup)
         emacs = os.environ.get('EMACS') or 'emacs'
-        self.command = (emacs, '-batch', '--no-site-file', '--no-init',
-                        '-q', '-l', 'setup.el', '-f', 'run-all-requests')
+        if NO_BATCH:
+            self.command = (emacs, '--no-site-file', '--no-init',
+                            '-q', '-l', 'setup.el', '-f', 'run-all-requests')
+        else:
+            self.command = (emacs, '-batch', '--no-site-file', '--no-init',
+                            '-q', '-l', 'setup.el', '-f', 'run-all-requests')
 
     def cleanup(self):
         if self.popen is not None:
