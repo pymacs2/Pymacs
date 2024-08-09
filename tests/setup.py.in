@@ -117,66 +117,29 @@ class Python(Launch):
         text = self.receive()
         assert text == '(version "@VERSION@")\n', repr(text)
 
-    if PYTHON3:
-
-        def receive(self):
-            # Receive a Lisp expression from the Pymacs helper.
-            stdout = self.process.stdout
-            data = stdout.read(3)
-            if not data or data[0] != ord(b'<'):
-                if data == b'Tra':
-                    # Likely a traceback, and the Pymacs helper terminated.
-                    diagnostic = (
-                            'got:\n' + (data + stdout.read()).decode('UTF-8'))
-                else:
-                    diagnostic = 'got ' + repr(data)
-                raise Pymacs.ProtocolError("'<' expected, %s\n" % diagnostic)
-            while data[-1] != ord('\t'):
-                data += stdout.read(1)
-            return str(stdout.read(int(data[1:-1])), 'UTF-8')
-
-    else:
-
-        def receive(self):
-            # Receive a Lisp expression from the Pymacs helper.
-            stdout = self.process.stdout
-            data = stdout.read(3)
-            if not data or data[0] != '<':
-                if data == 'Tra':
-                    # Likely a traceback, and the Pymacs helper terminated.
-                    diagnostic = 'got:\n' + data + stdout.read()
-                else:
-                    diagnostic = 'got ' + repr(data)
-                raise Pymacs.ProtocolError("'<' expected, %s\n" % diagnostic)
-            while data[-1] != '\t':
-                data += stdout.read(1)
-            return stdout.read(int(data[1:-1]))
-
-    if PYTHON3:
-
-        def send(self, text):
-            # Send TEXT, a Python expression, to the Pymacs helper.
-            stdin = self.process.stdin
-            data = text.encode('UTF-8')
-            if text[-1] == '\n':
-                stdin.write(('>%d\t' % len(data)).encode('ASCII'))
-                stdin.write(data)
+    def receive(self):
+        # Receive a Lisp expression from the Pymacs helper.
+        stdout = self.process.stdout
+        data = stdout.read(3)
+        if not data or data[0] != '<':
+            if data == 'Tra':
+                # Likely a traceback, and the Pymacs helper terminated.
+                diagnostic = 'got:\n' + data + stdout.read()
             else:
-                stdin.write(('>%d\t' % (len(data) + 1)).encode('ASCII'))
-                stdin.write(data)
-                stdin.write(b'\n')
-            stdin.flush()
+                diagnostic = 'got ' + repr(data)
+            raise Pymacs.ProtocolError("'<' expected, %s\n" % diagnostic)
+        while data[-1] != '\t':
+            data += stdout.read(1)
+        return stdout.read(int(data[1:-1]))
 
-    else:
-
-        def send(self, text):
-            # Send TEXT, a Python expression, to the Pymacs helper.
-            stdin = self.process.stdin
-            if text[-1] == '\n':
-                stdin.write('>%d\t%s' % (len(text), text))
-            else:
-                stdin.write('>%d\t%s\n' % (len(text) + 1, text))
-            stdin.flush()
+    def send(self, text):
+        # Send TEXT, a Python expression, to the Pymacs helper.
+        stdin = self.process.stdin
+        if text[-1] == '\n':
+            stdin.write('>%d\t%s' % (len(text), text))
+        else:
+            stdin.write('>%d\t%s\n' % (len(text) + 1, text))
+        stdin.flush()
 
 def start_python():
     Python.services = Python()
