@@ -83,3 +83,9 @@ def get_no_batch():
 NO_BATCH = get_no_batch()
 del get_no_batch
     
+def get_coverage():
+    import os
+    return 'COVERAGE' in os.environ
+
+COVERAGE = get_coverage()
+del get_coverage

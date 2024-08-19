@@ -38,6 +38,14 @@ import os
 import sys
 import signal
 
+if COVERAGE:
+    if 'COVERAGE' in os.environ:
+        from coverage import Coverage
+        if not Coverage.current():
+            cov = Coverage()
+            cov.start()
+    # (add-hook 'kill-emacs-hook (lambda () (pymacs-exec "if 'cov' in globals(): cov.save()")))
+
 if PYTHON3:
     from collections.abc import Callable
 

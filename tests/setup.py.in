@@ -52,6 +52,7 @@ class Emacs(Launch):
 
     def cleanup(self):
         if self.popen is not None:
+            ask_emacs("""(pymacs-exec "if 'cov' in globals(): cov.save()")""", 'prin1')
             self.popen.poll()
             if self.popen.returncode is None:
                 self.popen.kill()
