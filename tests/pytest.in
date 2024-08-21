@@ -26,7 +26,7 @@ a sequence of comma-separated integers.  Options -k, -o and -x may be
 repeated; then a test should match at least one of -k options if any,
 one of -o options is any, and none of -x options.
 
-If PATH names a file, the name should match "test_.*\.py".  If PATH names
+If PATH names a file, the name should match "test_.*\\.py".  If PATH names
 a directory, it is recursively searched to find so matching file names.
 If no PATH are given, the current directory is implied.
 
@@ -465,7 +465,7 @@ class Friendly_StreamWriter:
     # UTF-8 str strings to be written (given our sources are all UTF-8).
 
     def __init__(self, stream):
-        if locale is None:
+        if locale is None or os.name == 'nt':
             encoding = 'UTF-8'
         else:
             encoding = locale.getpreferredencoding()

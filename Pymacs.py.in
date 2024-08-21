@@ -36,6 +36,15 @@ version = '@VERSION@'
 
 import os
 import sys
+import signal
+
+if COVERAGE:
+    if 'COVERAGE' in os.environ:
+        from coverage import Coverage
+        if not Coverage.current():
+            cov = Coverage()
+            cov.start()
+    # (add-hook 'kill-emacs-hook (lambda () (pymacs-exec "if 'cov' in globals(): cov.save()")))
 
 if PYTHON3:
     from collections.abc import Callable
@@ -44,8 +53,9 @@ if PYTHON3:
         return isinstance(value, Callable)
 
     basestring = str
-    from imp import reload
+    from importlib import reload
 else:
+    from imp import reload
     __metaclass__ = type
 
 
@@ -56,12 +66,6 @@ def fixup_icanon():
     a = termios.tcgetattr(1)
     a[3] &= ~termios.ICANON
     termios.tcsetattr(1, termios.TCSANOW, a)
-
-try:
-    import signal
-except ImportError:
-    # Jython does not have signal.
-    signal = None
 
 ## Python services for Emacs applications.
 
@@ -317,94 +321,45 @@ class Protocol:
                     self.send(action, ''.join(fragments))
             return value
 
-    if PYTHON3:
-
-        def receive(self):
-            # Receive a Python expression from Emacs, return (ACTION, TEXT).
-            prefix = sys.stdin.buffer.read(3)
-            if not prefix or prefix[0] != ord(b'>'):
+    def receive(self):
+        # Receive a Python expression from Emacs, return (ACTION, TEXT).
+        prefix = sys.stdin.read(3)
+        if not prefix or prefix[0] != '>':
+            if OLD_EXCEPTIONS:
+                raise ProtocolError, "`>' expected."
+            else:
                 raise ProtocolError("`>' expected.")
-            while prefix[-1] != ord(b'\t'):
-                character = sys.stdin.buffer.read(1)
-                if not character:
-                    raise ProtocolError("Empty stdin read.")
-                prefix += character
-            data = sys.stdin.buffer.read(int(prefix[1:-1]))
-            try:
-                text = data.decode('UTF-8')
-            except UnicodeDecodeError:
-                #assert False, ('***', data)
-                text = data.decode('ISO-8859-1')
-            if run.debug_file is not None:
-                handle = open(run.debug_file, 'a')
-                handle.write(prefix.decode('ASCII') + text)
-                handle.close()
-            return text.split(None, 1)
-
-    else:
-
-        def receive(self):
-            # Receive a Python expression from Emacs, return (ACTION, TEXT).
-            prefix = sys.stdin.read(3)
-            if not prefix or prefix[0] != '>':
+        while prefix[-1] != '\t':
+            character = sys.stdin.read(1)
+            if not character:
                 if OLD_EXCEPTIONS:
-                    raise ProtocolError, "`>' expected."
+                    raise ProtocolError, "Empty stdin read."
                 else:
-                    raise ProtocolError("`>' expected.")
-            while prefix[-1] != '\t':
-                character = sys.stdin.read(1)
-                if not character:
-                    if OLD_EXCEPTIONS:
-                        raise ProtocolError, "Empty stdin read."
-                    else:
-                        raise ProtocolError("Empty stdin read.")
-                prefix += character
-            text = sys.stdin.read(int(prefix[1:-1]))
-            if run.debug_file is not None:
-                handle = open(run.debug_file, 'a')
-                handle.write(prefix + text)
-                handle.close()
-            return text.split(None, 1)
+                    raise ProtocolError("Empty stdin read.")
+            prefix += character
+        text = sys.stdin.read(int(prefix[1:-1]))
+        if run.debug_file is not None:
+            handle = open(run.debug_file, 'a')
+            handle.write(prefix + text)
+            handle.close()
+        return text.split(None, 1)
 
-    if PYTHON3:
-
-        def send(self, action, text):
-            # Send ACTION and its TEXT argument to Emacs.
-            if self.freed:
-                # All delayed Lisp cleanup is piggied back on the transmission.
-                text = ('(free (%s) %s %s)\n'
-                        % (' '.join(map(str, self.freed)), action, text))
-                self.freed = []
-            else:
-                text = '(%s %s)\n' % (action, text)
-            data = text.encode('UTF-8')
-            prefix = '<%d\t' % len(data)
-            if run.debug_file is not None:
-                handle = open(run.debug_file, 'a')
-                handle.write(prefix + text)
-                handle.close()
-            sys.stdout.buffer.write(prefix.encode('ASCII'))
-            sys.stdout.buffer.write(data)
-            sys.stdout.buffer.flush()
-
-    else:
-
-        def send(self, action, text):
-            # Send ACTION and its TEXT argument to Emacs.
-            if self.freed:
-                # All delayed Lisp cleanup is piggied back on the transmission.
-                text = ('(free (%s) %s %s)\n'
-                        % (' '.join(map(str, self.freed)), action, text))
-                self.freed = []
-            else:
-                text = '(%s %s)\n' % (action, text)
-            prefix = '<%d\t' % len(text)
-            if run.debug_file is not None:
-                handle = open(run.debug_file, 'a')
-                handle.write(prefix + text)
-                handle.close()
-            sys.stdout.write(prefix + text)
-            sys.stdout.flush()
+    def send(self, action, text):
+        # Send ACTION and its TEXT argument to Emacs.
+        if self.freed:
+            # All delayed Lisp cleanup is piggied back on the transmission.
+            text = ('(free (%s) %s %s)\n'
+                    % (' '.join(map(str, self.freed)), action, text))
+            self.freed = []
+        else:
+            text = '(%s %s)\n' % (action, text)
+        prefix = '<%d\t' % len(text)
+        if run.debug_file is not None:
+            handle = open(run.debug_file, 'a')
+            handle.write(prefix + text)
+            handle.close()
+        sys.stdout.write(prefix + text)
+        sys.stdout.flush()
 
 
 def pymacs_load_helper(file_without_extension, prefix, noerror=None):

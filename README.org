@@ -1,7 +1,10 @@
 #+TITLE: Pymacs — Notes
 #+OPTIONS: H:2
 
-![Build Status](https://github.com/pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg)
+[[https://github.com/pymacs2/Pymacs/actions/workflows/makefile.yml][https://github.com/pymacs2/Pymacs/workflows/Makefile%20CI/badge.svg]]
+[[https://github.com/mlt/Pymacs/actions/workflows/test.yml][https://github.com/mlt/Pymacs/actions/workflows/test.yml/badge.svg]]
+[[https://github.com/mlt/Pymacs/actions/workflows/windows.yml][https://github.com/mlt/Pymacs/actions/workflows/windows.yml/badge.svg]]
+[[https://codecov.io/github/mlt/Pymacs][https://codecov.io/github/mlt/Pymacs/graph/badge.svg?token=OSEET33REY]]
 
 Pymacs is a powerful tool which, once started from Emacs, allows
 both-way communication between Emacs Lisp and Python.  Pymacs aims
