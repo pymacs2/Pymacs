@@ -9,6 +9,7 @@ concurrency:
 env:
   PYMACS_OPTIONS: -d debug-protocol -s debug-signals
   PIP_DISABLE_PIP_VERSION_CHECK: 1
+  COVERAGE: 1
 
 jobs:
   test:
@@ -32,7 +33,21 @@ jobs:
         save-always: true
     - name: Set up Python & run tests
       shell: pwsh
-      run: ./test-windows.ps1 -EmacsVersion ${{ matrix.emacs-version }} -PythonVersion ${{ matrix.python-version }}
+      run: |
+        ./test-windows.ps1 -EmacsVersion ${{ matrix.emacs-version }} -PythonVersion ${{ matrix.python-version }}
+        Add-Content $env:GITHUB_PATH "C:\Python27\Scripts"
+    - name: Upload results to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        directory: tests
+        plugin: pycoverage
+        token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Process coverage
+      run: |
+        cd tests
+        coverage combine || echo "Nothing to combine"
+        coverage html
+        coverage report
     - name: Archive debug protocol
       if: failure()
       uses: actions/upload-artifact@v4

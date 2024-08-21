@@ -48,7 +48,7 @@ if (Test-Path -Path "C:\Python27" -PathType Container) {
 }
 
 if (-not $Env:PATH.Contains("C:\Python27")) {
-    $Env:PATH = "C:\Python27;" + $Env:PATH
+    $Env:PATH = "C:\Python27;C:\Python27\Scripts;" + $Env:PATH
 }
 
 Write-Output "Checking Python version"
@@ -62,6 +62,7 @@ Write-Output "Checking Python version"
 # }
 
 & python -m pip install --upgrade "pip < 21.0"
+& python -m pip install coverage
 & python -m pip install .
 
 & python ${PPPP} Pymacs.py.in pppp.rst.in pymacs.el.in pymacs.rst.in contrib tests
@@ -71,6 +72,6 @@ Push-Location tests
 #$Env:PYMACS_OPTIONS = "-d debug-protocol -s debug-signals"
 #$Env:PYTHONUTF8 = 1         # Python 3.7+
 
-& python pytest -f t
+& coverage run pytest -f t
 
 Pop-Location
