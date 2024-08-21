@@ -8,6 +8,7 @@ concurrency:
 
 env:
   PYMACS_OPTIONS: -d debug-protocol -s debug-signals
+  COVERAGE: 1
 
 jobs:
   test:
@@ -45,16 +46,36 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m pip install coverage
         python -m pip install .
     - name: Run tests
       env:
         PYTHONUTF8: ${{ runner.os == 'Windows' && '1' || env.PYTHONUTF8 }}
       run: |
         python pppp -C ppppconfig.py Pymacs.py.in pppp.rst.in pymacs.el.in pymacs.rst.in contrib tests
-        cd tests && python pytest -f t
+        cd tests && coverage run pytest -f t
+    - name: Upload results to Codecov
+      if: matrix.os != 'macos-latest' && matrix.python-version == '3.12'
+      uses: codecov/codecov-action@v4
+      with:
+        directory: tests
+        token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Process coverage
+      run: |
+        cd tests
+        coverage combine || echo "Nothing to combine"
+        coverage html
+        coverage report
     - name: Archive debug protocol
       if: failure()
       uses: actions/upload-artifact@v4
       with:
         name: debug-protocol-${{ matrix.emacs-version }}_${{ matrix.python-version }}_${{ matrix.os }}
         path: tests/debug-protocol
+    - name: Archive coverage
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ matrix.emacs-version }}_${{ matrix.python-version }}_${{ matrix.os }}
+        path: |
+          tests/.coverage
+          tests/htmlcov
